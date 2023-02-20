@@ -1,0 +1,161 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.bg{
+  background-color: #F0F2F5;
+  height:100vh;
+  font-family: 'Roboto'
+}
+
+.hd1{
+  font-size:36px;
+  color:#1877F2 ;
+  
+}
+.hd2{
+  font-size:24px;
+}
+
+.hd3{
+color:#C3C3C3;
+}
+
+.reg{
+ 
+  width: 450px;
+  background-color: #FFFFFF;
+  box-shadow: rgba(121, 121, 121, 0.25) 0px 14px 28px, rgba(190, 190, 190, 0.22) 0px 10px 10px;
+  
+}
+
+.reg-inpt{
+  
+  background-color: #ffffff;
+  /* border-color: #E7E7E7 ; */
+  color: #646464;
+  outline:auto;
+  outline-color:#E7E7E7  ;
+  
+
+}
+
+.reg-txt{
+  color: #bebebe;
+  font-size: 12px;
+}
+
+.reg-btn{
+  font-size: 17px;
+  font-weight:500 ;
+  color: #FFFFFF;
+  background-color:#42B72A ;
+  box-shadow: rgba(121, 121, 121, 0.25) 0px 14px 28px, rgba(190, 190, 190, 0.22) 0px 10px 10px;
+}
+.reg-btn:hover{
+  background-color: #398a29;
+}
+
+::placeholder{
+  color:#b9b9b9;
+  font-size: 16px;
+}
+.reg-inpt:focus {
+  outline-color:#97bff3;
+
+}
+
+.p-name{
+  font-size: 24px;
+}
+
+.chat{
+ 
+ 
+    width:600px;
+    background-color: #FFFFFF;
+    box-shadow: rgba(121, 121, 121, 0.25) 0px 14px 28px, rgba(190, 190, 190, 0.22) 0px 10px 10px;
+    
+ 
+}
+
+.friends{
+  height: 500px;
+  width:40%;
+  outline: auto;
+  outline-color: #E7E7E7;
+  overflow-y: scroll;
+}
+
+.chat-room{
+
+  height: 500px;
+  width:65%;
+  outline: auto;
+  outline-color: #E7E7E7;
+}
+.msg-box{
+
+  height:90%;
+  overflow-y: scroll;
+
+}
+.msg-send-box{
+  height:10%;
+  background-color: #E7E7E7;
+}
+.send-btn{
+  font-size: 17px;
+  font-weight:500 ;
+  color: #FFFFFF;
+  background-color:#42B72A ;
+}
+
+.send-btn:hover{
+  background-color: #398a29;
+}
+.friend-name{
+  font-size: 15px;
+}
+.msg{
+  width:60%;
+  outline: auto;
+  outline-color: #1877F2;
+  font-size: 14px;
+  
+}
