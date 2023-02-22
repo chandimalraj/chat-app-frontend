@@ -54,11 +54,11 @@ const ChatRoom = () => {
             (payload) => {
               var payloadData = JSON.parse(payload.body);
 
-              privateChats.set(payloadData.senderName,[]);
-              setPrivateChats(new Map(privateChats));
-              msgs.push(payloadData.message)
-              //setMsgs([...msgs,payloadData.message])
-              console.log(msgs);
+              // privateChats.set(payloadData.senderName,[]);
+              // setPrivateChats(new Map(privateChats));
+              // msgs.push(payloadData.message)
+              // //setMsgs([...msgs,payloadData.message])
+              // console.log(msgs);
              
             }
           );
@@ -124,16 +124,13 @@ const ChatRoom = () => {
   const sendPrivate = ()=>{
     var chatMessage = {
       senderName: userData.username,
-      receiverName: "b",
+      receiverName: "c",
       status: "MESSAGE",
       message:" private message",
     };
 
     stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
   }
-
-
-
 
 
   const messageRecieved = (payload) => {
