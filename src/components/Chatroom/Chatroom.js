@@ -15,8 +15,7 @@ export default function Chatroom(props) {
   const [msg, setMsg] = useState("");
   const [recieverName, setReciever] = useState("");
   const [msgData, setMsgData] = useState([]);
-  //const [x, setX] = useState(false);
-
+ 
   console.log(msgData);
 
   const [userData, setUserData] = useState({
@@ -73,8 +72,7 @@ export default function Chatroom(props) {
 
               setMsgData((prevMessages) => [...prevMessages, chatMessage]);
 
-              // msgData.push(chatMessage);
-              // setMsgData([...msgData]);
+             
             }
           );
         }
@@ -98,9 +96,7 @@ export default function Chatroom(props) {
       message: msg,
     };
     setMsgData((prevMessages) => [...prevMessages, chatMessage]);
-    // msgData.push(chatMessage);
-    // setMsgData([...msgData]);
-    //setX(true);
+   
     stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
   };
 
@@ -133,15 +129,7 @@ export default function Chatroom(props) {
                 <Friend name={user.username} setReciever={setReciever} />
               ))}
 
-              {/* <Friend name="chandimal prabath" />
-              <Friend name="chandimal prabath" />
-              <Friend name="chandimal prabath" />
-              <Friend name="chandimal prabath" />
-              <Friend name="chandimal prabath" />
-              <Friend name="chandimal prabath" />
-              <Friend name="chandimal prabath" />
-              <Friend name="chandimal prabath" />
-              <Friend name="chandimal prabath" /> */}
+              
             </div>
 
             <div className="chat-room d-flex flex-column">
@@ -154,23 +142,9 @@ export default function Chatroom(props) {
                       <RecieveMessage msg={item.message} />
                     )
 
-                  // if(data.senderName==user.userId){
-                  //   <SendMessage msg={data.message}/>
-                  // }
-                  // else{
-                  //    <RecieveMessage msg={data.message} />
-                  // }
+                 
                 )}
-                {/* <RecieveMessage />
-                <SendMessage />
-                <RecieveMessage />
-                <RecieveMessage />
-                <SendMessage />
-                <RecieveMessage />
-                <SendMessage />
-                <RecieveMessage />
-                <RecieveMessage />
-                <SendMessage /> */}
+                
               </div>
               <div className="msg-send-box d-flex flex-row">
                 <input className="w-75 reg-inpt" onChange={setMessage} />
