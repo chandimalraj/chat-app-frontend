@@ -7,19 +7,17 @@ import axios from "axios";
 import { over } from "stompjs";
 import SockJS from "sockjs-client";
 
-
 var stompClient = null;
 
 export default function Chatroom(props) {
   const user = props.user;
   const [data, setData] = useState([]);
-  const [msg , setMsg] = useState("")
-  const [recieverName , setReciever] = useState("")
-  const [msgData,setMsgData] = useState([])
-  const [x,setX] = useState(false)
- 
+  const [msg, setMsg] = useState("");
+  const [recieverName, setReciever] = useState("");
+  const [msgData, setMsgData] = useState([]);
+  //const [x, setX] = useState(false);
 
-  console.log(msgData)
+  console.log(msgData);
 
   const [userData, setUserData] = useState({
     username: user.userId,
@@ -38,7 +36,7 @@ export default function Chatroom(props) {
       .get("http://localhost:8090/api/v1/user/get-all")
       .then((res) => {
         const data = res.data.data;
-       
+
         setData(data);
       })
       .catch((err) => {
@@ -53,67 +51,60 @@ export default function Chatroom(props) {
   //connect to backend
   const connect = () => {
     let Sock = new SockJS("http://localhost:8090/ws");
-    stompClient = over(Sock)
+    stompClient = over(Sock);
     stompClient.connect(
       {},
       () => {
         if (stompClient.connected) {
           console.log("stomp client connected to server");
           setUserData({ ...userData, connected: true });
-        
-          stompClient.subscribe('/user/'+ userData.username +'/private',  (payload)=>{
 
-            const data = JSON.parse(payload.body);
+          stompClient.subscribe(
+            "/user/" + userData.username + "/private",
+            (payload) => {
+              const data = JSON.parse(payload.body);
 
-           
+              const chatMessage = {
+                senderName: data.senderName,
+                receiverName: data.receiverName,
+                status: "MESSAGE",
+                message: data.message,
+              };
 
-            const chatMessage = {
-              senderName: data.senderName,
-              receiverName: data.receiverName,
-              status: "MESSAGE",
-              message:data.message,
-            };
+              setMsgData((prevMessages) => [...prevMessages, chatMessage]);
 
-            msgData.push(chatMessage)
-            setMsgData([...msgData])
-            
-         });
-
-         
-          
+              // msgData.push(chatMessage);
+              // setMsgData([...msgData]);
+            }
+          );
         }
       },
-      (onError=>{
-        console.error(onError)
-      })
+      (onError) => {
+        console.error(onError);
+      }
     );
-
-   
   };
-console.log("hi")
+  console.log("hi");
 
-  const setMessage = (e)=>{
-    setMsg(e.target.value)
-  }
+  const setMessage = (e) => {
+    setMsg(e.target.value);
+  };
 
-  const sendMessage = ()=>{
-
+  const sendMessage = () => {
     var chatMessage = {
       senderName: user.userId,
       receiverName: recieverName,
       status: "MESSAGE",
-      message:msg,
+      message: msg,
     };
-
-    msgData.push(chatMessage)
-    setMsgData([...msgData])
-    setX(true)
+    setMsgData((prevMessages) => [...prevMessages, chatMessage]);
+    // msgData.push(chatMessage);
+    // setMsgData([...msgData]);
+    //setX(true);
     stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-  }
+  };
 
- 
-
-  const users = [1,2,3]
+  const users = [1, 2, 3];
 
   return (
     <div className="container-fluid bg">
@@ -138,14 +129,9 @@ console.log("hi")
 
           <div className="d-flex flex-row">
             <div className="friends d-flex flex-column">
-
-
-              {
-                data.map((user)=>
-                 <Friend name={user.username} setReciever={setReciever}/>
-                )
-              }
-
+              {data.map((user) => (
+                <Friend name={user.username} setReciever={setReciever} />
+              ))}
 
               {/* <Friend name="chandimal prabath" />
               <Friend name="chandimal prabath" />
@@ -160,27 +146,21 @@ console.log("hi")
 
             <div className="chat-room d-flex flex-column">
               <div className="msg-box pt-2">
-
-                {
-                 msgData.map((item)=>
-                    x==true ? (
-                      <SendMessage msg={item.message}/>
+                {msgData.map(
+                  (item) =>
+                     item.receiverName !=user.userId ? (
+                      <SendMessage msg={item.message} />
                     ) : (
-                      
-                      <RecieveMessage msg={item.message} /> 
+                      <RecieveMessage msg={item.message} />
                     )
-                  
 
                   // if(data.senderName==user.userId){
                   //   <SendMessage msg={data.message}/>
                   // }
                   // else{
-                  //    <RecieveMessage msg={data.message} /> 
+                  //    <RecieveMessage msg={data.message} />
                   // }
-                
-                )
-                
-                }
+                )}
                 {/* <RecieveMessage />
                 <SendMessage />
                 <RecieveMessage />
@@ -193,8 +173,10 @@ console.log("hi")
                 <SendMessage /> */}
               </div>
               <div className="msg-send-box d-flex flex-row">
-                <input className="w-75 reg-inpt" onChange={setMessage}/>
-                <button className="send-btn w-25" onClick={sendMessage}>Send </button>
+                <input className="w-75 reg-inpt" onChange={setMessage} />
+                <button className="send-btn w-25" onClick={sendMessage}>
+                  Send{" "}
+                </button>
               </div>
             </div>
           </div>
