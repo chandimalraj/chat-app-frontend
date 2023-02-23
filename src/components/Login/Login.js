@@ -20,6 +20,8 @@ export default function Login() {
   const setuserId = (e) => {
     const newOb = { ...user, userId: e.target.value };
     setUser(newOb);
+    setErr1("");
+    
   };
   const setuserPwd = (e) => {
     const newOb = { ...user, password: e.target.value };
@@ -32,40 +34,28 @@ export default function Login() {
     //id.length!=0 &&
     console.log("login");
 
-    //create cookie
-    //Cookies.set("my-cookie frontend","mage value eka")
+      setSpinner(true);
 
-    // if (
-    //   !(
-    //     RegExp(emailPattern).test(user.userId) ||
-    //     RegExp(phonePattern).test(user.userId)
-    //   )
-    // ) {
-    //   setErr1("Email or Phone is not valid! please check again");
-    // } else {
-    //   setSpinner(true);
-
-    //   axios
-    //     .post("http://localhost:8090/api/v1/user/login", idAndPassword, {
-    //       withCredentials: true,
-    //     })
-    //     .then((res) => {
-    //       setTimeout(() => {
-    //         setSpinner(false);
-    //       }, 4000);
-    //       console.log(res.headers);
-
-    //       if (res.data == "password incorrect") {
-    //         setErr2("password is incorrect");
-    //       } else {
-    //         setLogin(true)
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       console.log(error);
-    //     });
-    // }
-    setLogin(true)
+      axios
+        .post("http://localhost:8090/api/v1/user/login", idAndPassword)
+        .then((res) => {
+          setTimeout(() => {
+            setSpinner(false);
+          }, 4000);
+          
+           console.log(res.data)
+          if (res.data.data != "true") {
+            setErr2("password is incorrect");
+          } else {
+            setLogin(true)
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    
+   
+    //setLogin(true)
   };
 
   console.log(user);
@@ -87,6 +77,17 @@ export default function Login() {
               className="reg-inpt p-2  rounded-2 "
               placeholder="Email Or Phone"
               onChange={setuserId}
+              onBlur={
+                ()=>{
+                if (
+                  !(
+                    RegExp(emailPattern).test(user.userId) ||
+                    RegExp(phonePattern).test(user.userId)
+                  )
+                ) {
+                  setErr1("Email or Phone is not valid! please check again");
+                }
+              }}
             ></input>
             <div className="err mb-1">{err1}</div>
   
@@ -95,13 +96,15 @@ export default function Login() {
               placeholder="Password"
               type={"password"}
               onChange={setuserPwd}
+              onBlur={
+               ()=> setErr2("")
+              }
             ></input>
             <div className="err mb-1">{err2}</div>
   
             <div className="d-flex flex-row justify-content-center mt-2">
               <button className="reg-btn  p-2 px-4 rounded-2" onClick={login}>
-                {" "}
-                Log In{" "}
+                Log In
               </button>
             </div>
             <div className="d-flex flex-row justify-content-center mt-3 text-primary mb-1">
