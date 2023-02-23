@@ -8,6 +8,7 @@ export default function Login() {
   const [user, setUser] = useState({
     userId: "",
     password: "",
+    type:""
   });
   const [logIn, setLogin] = useState(false);
   const [err1, setErr1] = useState("");
@@ -30,11 +31,20 @@ export default function Login() {
 
   const login = (e) => {
     e.preventDefault();
-    const idAndPassword = { id: user.userId, password: user.password };
+    const idAndPassword = { id: user.userId, password: user.password ,idType:user.type};
     //id.length!=0 &&
     console.log("login");
 
       setSpinner(true);
+
+      if (RegExp(emailPattern).test(user.userId)){
+        const newOb = { ...user , type:"email"}
+        setUser(newOb)
+      }
+      else{
+        const newOb = { ...user , type:"phone"}
+        setUser(newOb)
+      }
 
       axios
         .post("http://localhost:8090/api/v1/user/login", idAndPassword)
