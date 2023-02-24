@@ -86,6 +86,10 @@ color:#C3C3C3;
   color: #FFFFFF;
   background-color:#42B72A ;
   box-shadow: rgba(121, 121, 121, 0.25) 0px 14px 28px, rgba(190, 190, 190, 0.22) 0px 10px 10px;
+ 
+  outline:auto;
+  border-color: #398a29;
+  outline-color:#42B72A;
 }
 .reg-btn:hover{
   background-color: #398a29;

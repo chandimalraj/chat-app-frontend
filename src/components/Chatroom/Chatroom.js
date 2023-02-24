@@ -19,7 +19,7 @@ export default function Chatroom(props) {
   console.log(msgData);
 
   const [userData, setUserData] = useState({
-    username: user.userId,
+    username: user,
     receivername: "",
     connected: false,
     message: "",
@@ -71,8 +71,6 @@ export default function Chatroom(props) {
               };
 
               setMsgData((prevMessages) => [...prevMessages, chatMessage]);
-
-             
             }
           );
         }
@@ -90,7 +88,7 @@ export default function Chatroom(props) {
 
   const sendMessage = () => {
     var chatMessage = {
-      senderName: user.userId,
+      senderName: user,
       receiverName: recieverName,
       status: "MESSAGE",
       message: msg,
@@ -107,7 +105,7 @@ export default function Chatroom(props) {
       <div className="container d-flex flex-column align-items-center">
         <div className="fw-bold hd1 pt-3 ">Simply Chat</div>
 
-        <div className="chat d-flex flex-column p-3 mt-5 rounded-3 ">
+        <div className="chat d-flex flex-column p-3 mt-5 rounded-3 mb-5">
           <div className="d-flex flex-row align-items-center px-4">
             <img
               src={person}
@@ -116,7 +114,7 @@ export default function Chatroom(props) {
               style={{ width: "50px" }}
             />
 
-            <div className="px-4 chat-name">{user.userId}</div>
+            <div className="px-4 chat-name">{user}</div>
           </div>
 
           <div>
@@ -136,7 +134,7 @@ export default function Chatroom(props) {
               <div className="msg-box pt-2">
                 {msgData.map(
                   (item) =>
-                     item.receiverName !=user.userId ? (
+                     item.receiverName !=user ? (
                       <SendMessage msg={item.message} />
                     ) : (
                       <RecieveMessage msg={item.message} />

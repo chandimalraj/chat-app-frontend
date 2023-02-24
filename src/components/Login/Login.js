@@ -10,6 +10,7 @@ export default function Login() {
     password: "",
     type:""
   });
+  const [uname,setUname] = useState("")
   const [logIn, setLogin] = useState(false);
   const [err1, setErr1] = useState("");
   const [err2, setErr2] = useState("");
@@ -54,9 +55,12 @@ export default function Login() {
           }, 4000);
           
            console.log(res.data)
-          if (res.data.data != "true") {
-            setErr2("password is incorrect");
-          } else {
+          if (res.data.data == "User not Found") {
+            setErr2("user not found");
+          } else if(res.data.data == "password not match"){
+            setErr2("password incorrect");
+          }else{
+            setUname(res.data.data)
             setLogin(true)
           }
         })
@@ -72,7 +76,7 @@ export default function Login() {
 
 
   if(logIn){
-    return ( <Chatroom user ={user}/> )
+    return ( <Chatroom user ={uname}/> )
   }
    else{
     return (
